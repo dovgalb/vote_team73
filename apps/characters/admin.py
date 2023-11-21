@@ -4,4 +4,4 @@ from .models import Characters
 
 @admin.register(Characters)
 class CharactersAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'age')

@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "vote-team73"
+version = "0.1.0"
+description = ""
+authors = ["bogdan_shcherbatov <bogdandovgal1208@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.7"
+djangorestframework = "^3.14.0"
+pillow = "^10.1.0"
+django-debug-toolbar = "^4.2.0"
+drf-yasg = "^1.21.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

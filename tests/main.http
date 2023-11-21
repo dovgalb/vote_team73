@@ -1,0 +1,10 @@
+GET localhost:8000/votings
+###
+
+GET localhost:8000/votings/1
+###
+
+POST localhost:8000/votings/1/vote/
+
+{"character_id": 1}
+
