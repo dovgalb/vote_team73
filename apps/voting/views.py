@@ -12,7 +12,7 @@ from ..characters.models import Characters
 
 
 class VotingViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    queryset = Voting.objects.all()
+    queryset = Voting.objects.all().prefetch_related('characters')
     serializer_class = VotingSerializer
 
     def get_serializer_class(self):
