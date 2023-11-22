@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
     command: gunicorn project.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - static:/backend/static
-      - media:/backend/media
+      - static:/code/static
+      - media:/code/media
     expose:
       - 8000
     env_file:

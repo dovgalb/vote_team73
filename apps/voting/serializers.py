@@ -10,7 +10,7 @@ class VotingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Voting
-        fields = ['id', 'title', 'start_date', 'end_date', 'early_finish_votes', 'characters', 'is_active', 'winner']
+        fields = ['id', 'title', 'start_date', 'end_date', 'early_terminations', 'characters', 'is_active', 'winner']
 
 
 class WinnerSerializer(serializers.ModelSerializer):

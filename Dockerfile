@@ -22,11 +22,15 @@ WORKDIR /code
 COPY --from=requirements-stage /tmp/requirements.txt /code/requirements.txt
 
 #
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 #
-COPY entrypoint.sh /tmp/entrypoint.sh
+COPY ./entrypoint.sh .
+
+RUN sed -i 's/\r$//g' /code/entrypoint.sh
+RUN chmod +x /code/entrypoint.sh
 
 COPY . .
 
-ENTRYPOINT ["sh", "/tmp/entrypoint.sh"]
+ENTRYPOINT ["sh", "/code/entrypoint.sh"]
