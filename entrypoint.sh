@@ -13,8 +13,7 @@ fi
 
 python manage.py makemigrations
 python manage.py migrate
-python manage.py runserver
 #python manage.py loaddata data.json
-#python manage.py collectstatic --no-input
+python manage.py collectstatic --no-input
 
 exec "$@"
