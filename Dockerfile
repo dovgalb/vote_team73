@@ -33,4 +33,6 @@ RUN chmod +x /code/entrypoint.sh
 
 COPY . .
 
+RUN apt-get update && apt-get install -y netcat
+
 ENTRYPOINT ["sh", "/code/entrypoint.sh"]
