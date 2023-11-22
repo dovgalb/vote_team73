@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\bogda\OneDrive\Рабочий стол\vote_team73\vote\db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="postgres_db@localhost" uuid="7b9aaeed-af01-4a07-b631-be1dab46a22d">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5436/postgres_db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
