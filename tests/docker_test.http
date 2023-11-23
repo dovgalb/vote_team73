@@ -1,0 +1,22 @@
+# Получить все голосования
+GET localhost:80/votings
+###
+
+# Получить конкретное голосование
+GET localhost:80/votings/1
+###
+
+
+#Проголосовать
+POST localhost:80/votings/6/vote/
+
+{"character_id": 2}
+###
+
+
+#Получить всех участников
+GET localhost:80/characters/
+###
+
+#Получить победителя голосования
+GET localhost:80/votings/3/retrieve_winner/

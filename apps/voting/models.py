@@ -33,7 +33,7 @@ class Voting(models.Model):
         """
         Получение победителя как персонажа с максимальным числом голосов для завершенных голосований
         """
-        return self.characters.annotate(num_votes=models.Count('votes')).order_by('-num_votes').first() if not self.is_active else None
+        return self.characters.annotate(num_votes=models.Count('votes')).order_by('num_votes').first() if not self.is_active else None
 
     class Meta:
         verbose_name = 'Голосование'
@@ -47,9 +47,11 @@ class Vote(models.Model):
     vote_time = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        creating = not self.pk  # Check if we're creating a new vote
-        super().save(*args, **kwargs)  # Call original save method
-        if creating:  # Only run this logic when creating a new vote
+        creating = not self.pk  # Проверяем, создаем ли мы новое голосование
+        super().save(*args, **kwargs)  # Вызвать исходный метод сохранения
+        if not self.voting.is_active:
+            raise ValueError('Голосование не активно')
+        if creating:
             current_votes = Vote.objects.filter(character=self.character, voting=self.voting).count()
             voting = self.voting
             if voting.max_votes < current_votes:
