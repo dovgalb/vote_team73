@@ -36,12 +36,11 @@ if DEBUG:
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
     INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2", "localhost"]
 
-    # hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-    # INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
-    # # Since our requests will be routed to Django via the nginx container, include
-    # # the nginx IP address as internal as well
-    # hostname, _, nginx_ips = socket.gethostbyname_ex("nginx")
-    # INTERNAL_IPS += nginx_ips
+    # Ниже настройки для nginx и gunicorn(для разворачивания локально - закомментировать)
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
+    hostname, _, nginx_ips = socket.gethostbyname_ex("nginx")
+    INTERNAL_IPS += nginx_ips
 
 # Application definition
 

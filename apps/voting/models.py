@@ -25,6 +25,7 @@ class Voting(models.Model):
 
     @property
     def is_active(self):
+        ""
         now = timezone.now()
         return self.start_date < now <= self.end_date and self.max_votes < (self.early_terminations or float('inf'))
 
@@ -33,7 +34,7 @@ class Voting(models.Model):
         """
         Получение победителя как персонажа с максимальным числом голосов для завершенных голосований
         """
-        return self.characters.annotate(num_votes=models.Count('votes')).order_by('num_votes').first() if not self.is_active else None
+        return self.characters.annotate(num_votes=models.Count('votes')).order_by('-num_votes').first() if not self.is_active else None
 
     class Meta:
         verbose_name = 'Голосование'
@@ -60,15 +61,6 @@ class Vote(models.Model):
             if voting.early_terminations and current_votes >= voting.early_terminations:
                 voting.end_date = timezone.now()
                 voting.save(update_fields=['end_date'])
-
-
-    # def save(self, *args, **kwargs):
-        # if self.voting.is_active:
-        #     super().save(*args, **kwargs)
-        #     votes_count = Vote.objects.filter(character=self.character).count()
-        #     Voting.objects.filter(pk=self.voting.pk).update(max_votes=max(self.voting.max_votes, votes_count))
-        # else:
-        #     raise ValueError('Голосование не активно')
 
     class Meta:
         verbose_name = 'Голос'

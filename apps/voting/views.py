@@ -33,9 +33,10 @@ class VotingViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.G
         try:
             character = Characters.objects.get(pk=character_id)
             Vote.objects.create(voting=voting, character=character)
-            return Response({'status': 'vote counted'})
+            character.is_in_voting(voting)
+            return Response({'status': 'Голосование прошло успешно'})
         except Characters.DoesNotExist:
-            return Response({'status': 'not a valid character for this voting'}, status=400)
+            return Response({'status': 'Этот персонаж не участвует в голосовании'}, status=400)
         except ValueError as e:
             return Response({'status': str(e)}, status=400)
 

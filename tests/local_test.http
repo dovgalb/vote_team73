@@ -6,11 +6,17 @@ GET localhost:8000/votings
 GET localhost:8000/votings/1
 ###
 
+#Проголосовать спешно("character_id": 9 или 10 (для перого голосования))
+POST localhost:8000/votings/1/vote/
 
-#Проголосовать
-POST localhost:8000/votings/6/vote/
+{"character_id": 9}
+###
 
-{"character_id": 2}
+# Вызвать исключение "Этот персонаж не участвует в голосовании" ("character_id": любой другой айди кроме 9, 10 )
+# (для перого голосования)
+POST localhost:8000/votings/1/vote/
+
+{"character_id": 9}
 ###
 
 
@@ -20,7 +26,6 @@ GET localhost:8000/characters/
 
 #Получить победителя голосования
 GET localhost:8000/votings/1/retrieve_winner/
-
 
 
 
