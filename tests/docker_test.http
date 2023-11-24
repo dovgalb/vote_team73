@@ -14,9 +14,9 @@ POST localhost:80/votings/1/vote/
 
 # Вызвать исключение "Этот персонаж не участвует в голосовании" ("character_id": любой другой айди кроме 9, 10 )
 # (для перого голосования)
-POST localhost:80/votings/1/vote/
+POST localhost:80/votings/2/vote/
 
-{"character_id": 9}
+{"character_id": 1}
 ###
 
 
@@ -25,4 +25,4 @@ GET localhost:80/characters/
 ###
 
 #Получить победителя голосования
-GET localhost:80/votings/1/retrieve_winner/
+GET localhost:80/votings/2/retrieve_winner/
