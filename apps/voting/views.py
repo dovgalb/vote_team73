@@ -6,8 +6,9 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Voting, Vote
-from .serializers import VotingSerializer, WinnerSerializer
+from .serializers import VotingSerializer, WinnerSerializer, MakeVotingSerializer
 from apps.characters.serializers import CharacterSerializer
+from .services import make_voting
 from ..characters.models import Characters
 
 
@@ -40,8 +41,15 @@ class VotingViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.G
         except ValueError as e:
             return Response({'status': str(e)}, status=400)
 
-
 class CharacterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Characters.objects.all()
     serializer_class = CharacterSerializer
 
+
+class MakeVoteViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = MakeVotingSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        make_voting(serializer.validated_data)

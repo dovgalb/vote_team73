@@ -25,7 +25,6 @@ class Voting(models.Model):
 
     @property
     def is_active(self):
-        ""
         now = timezone.now()
         return self.start_date < now <= self.end_date and self.max_votes < (self.early_terminations or float('inf'))
 
