@@ -14,9 +14,8 @@ class Voting(models.Model):
     is_active = models.BooleanField(default=True)
     characters = models.ManyToManyField(
         to="Character",
-        related_name='characters_voting',
         verbose_name='Участники',
-        through='VotingCharacters',
+        through='VotingCharacter',
     )
 
     def __str__(self):
@@ -44,10 +43,13 @@ class Character(models.Model):
         verbose_name_plural = 'Персонажи'
 
 
-class VotingCharacters(models.Model):
+class VotingCharacter(models.Model):
     character = models.ForeignKey(to=Character, on_delete=models.CASCADE)
     voting = models.ForeignKey(to=Voting, on_delete=models.CASCADE)
     num_of_votes = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f'id:{self.id}. Голосование: {self.voting.title}, Участник: {self.character.name}'
 
     class Meta:
         verbose_name = 'Результат'

@@ -12,22 +12,11 @@ class CharacterSerializer(serializers.ModelSerializer):
 class VotingSerializer(serializers.ModelSerializer):
     characters = CharacterSerializer(many=True)
     is_active = serializers.BooleanField(read_only=True)
-    winner = CharacterSerializer()
 
     class Meta:
         model = Voting
-        fields = ['id', 'title', 'start_date', 'end_date', 'early_terminations', 'characters', 'is_active', 'winner']
+        fields = ['id', 'title', 'start_date', 'end_date', 'early_terminations', 'characters', 'is_active']
 
-
-class WinnerSerializer(serializers.ModelSerializer):
-    """
-    Сериализатор для отображения победителей
-    """
-    winner = CharacterSerializer()
-
-    class Meta:
-        model = Voting
-        fields = ['winner']
 
 
 #  модернизированные
@@ -40,9 +29,3 @@ class MakeVotingSerializer(serializers.Serializer):
 
     def validate_character_id(self, character_id):
         return get_object_or_404(Character, id=character_id)
-
-
-class CharacterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Character
-        fields = ['name', 'age']

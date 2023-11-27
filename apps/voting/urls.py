@@ -13,6 +13,8 @@ from . import views
 router = DefaultRouter()
 
 # модернизированные
+router.register(r'votings', views.VotingViewSet, basename='votings')
+router.register(r'characters', views.CharacterViewSet, basename='characters')
 router.register(r'make_vote', views.MakeVoteViewSet, basename='make_vote')
 
 
