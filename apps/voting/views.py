@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.shortcuts import render
 
 from rest_framework import generics, mixins, viewsets
@@ -28,6 +29,9 @@ class MakeVoteViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        make_voting(serializer.validated_data)
+        try:
+            make_voting(serializer.validated_data)
+        except ValidationError as exception:
+            return Response({'message': exception}, status=status.HTTP_400_BAD_REQUEST)
         return Response({'message': 'Ваш голос учтен'}, status=status.HTTP_201_CREATED)
 
