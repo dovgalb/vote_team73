@@ -40,3 +40,10 @@ class MakeVotingSerializer(serializers.Serializer):
         if not voting_character:
             raise ValidationError('Данный персонаж не участвует в этом голосовании')
         return attrs
+
+
+class WinnerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VotingCharacter
+        fields = ['voting', 'character', 'num_of_votes']
+

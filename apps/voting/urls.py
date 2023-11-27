@@ -16,6 +16,7 @@ router = DefaultRouter()
 router.register(r'votings', views.VotingViewSet, basename='votings')
 router.register(r'characters', views.CharacterViewSet, basename='characters')
 router.register(r'make_vote', views.MakeVoteViewSet, basename='make_vote')
+router.register(r'winners', views.WinnerViewSet, basename='winners')
 
 
 

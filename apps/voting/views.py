@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Voting, VotingCharacter
-from .serializers import VotingSerializer, MakeVotingSerializer
+from .serializers import VotingSerializer, MakeVotingSerializer, WinnerSerializer
 from .serializers import CharacterSerializer
 from .services import make_voting
 from .models import Character
@@ -40,11 +40,12 @@ class VotingViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.Retri
         serializer = self.get_serializer(inactive_votings, many=True)
         return Response(serializer.data)
 
-    # @action(detail=False, methods=['get'])
-    # def get_winners(self, request):
-    #     winners = VotingCharacter.objects.filter(voting__is_active=False)
-    #     serializer = self.get_serializer(winners, many=True)
-    #     return Response(serializer.data)
+
+class WinnerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    # todo Доделать фильтрацию победителей
+    queryset = VotingCharacter.objects.filter(voting__is_active=False)
+    serializer_class = WinnerSerializer
+
 
 
 class MakeVoteViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
