@@ -55,7 +55,6 @@ BASE_APPS = [
 
 PROJECT_APPS = [
     'apps.voting.apps.VotingConfig',
-    'apps.characters.apps.CharactersConfig',
 ]
 
 EXTERNAL_APPS = [

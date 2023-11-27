@@ -1,4 +1,5 @@
 from dataclasses import dataclass, Field, field
+from .models import VotingCharacters
 
 
 @dataclass
@@ -12,31 +13,20 @@ class Character:
     name: str
 
 
-def voting(vote: Vote, members_list: list[Character]):
-    """
-    Создает голосование
-    """
-    for member in members_list:
-        if member.name not in vote.members:
-            vote.members[member.name] = 0
-        vote.members[member.name] += 1
-    return vote
-
-
 def make_voting(validated_data):
     """
-    Метод вызова бизнеслогики
+    Метод вызова бизнес логики
     """
-    member = validated_data['member_id']
-    vote = validated_data['vote_id']
-    character_dto = Character(member.name)
-    vote_dto = Vote(vote.title)
-    res = voting(vote_dto, [character_dto])
-    entity = throw_table_vaoting_characters.objects.filter(member=member, vote=vote).first()
+    character = validated_data['character_id']
+    voting = validated_data['voting_id']
+    character_dto = Character(character.name)
+    vote_dto = Vote(voting.title)
+    # res = voting(vote_dto, [character_dto])
+    entity = VotingCharacters.objects.filter(character=character, voting=voting).first()
     if entity:
-        entity.amount = res.members[member.name]
+        entity.num_of_votes += 1
         entity.save()
     else:
-        throw_table_vaoting_characters.objects.create(member=member, vote=vote, amount=res.members[member.name])
+        VotingCharacters.objects.create(character=character, voting=voting)
 
     ### DTO НАДО ЗНАТЬ

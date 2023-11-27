@@ -11,11 +11,9 @@ from . import views
 # ]
 
 router = DefaultRouter()
-router.register(r'votings', views.VotingViewSet)
-router.register(r'characters', views.CharacterViewSet)
 
 # модернизированные
-router.register(r'make_vote', views.MakeVoteViewSet, basename=',ake_vote')
+router.register(r'make_vote', views.MakeVoteViewSet, basename='make_vote')
 
 
 

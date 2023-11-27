@@ -1,0 +1,6 @@
+POST localhost:8000/make_vote/
+
+{
+    "vote_id": 1,
+    "member_id": 1,
+}
