@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from django.db.models import F
+from django.db.models import F, Q
 from django.shortcuts import render
 
 from rest_framework import generics, mixins, viewsets
@@ -43,7 +43,11 @@ class VotingViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.Retri
 
 
 class WinnerViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    queryset = VotingCharacter.objects.filter(num_of_votes=F('voting__early_terminations'))
+    """Представление для отображения победителей голосований"""
+    queryset = VotingCharacter.objects.filter(
+        Q(num_of_votes=F('voting__early_terminations')) &
+        Q(voting__is_active=False)
+    )
     serializer_class = WinnerSerializer
 
 
