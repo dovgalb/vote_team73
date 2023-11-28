@@ -1,6 +1,9 @@
+# проголосвать
 POST localhost:8000/make_vote/
+Content-Type: application/json
 
 {
-    "voting_id": 2,
-    "character_id": 1,
+  "voting_id": 3,
+  "character_id": 3
 }
+###
